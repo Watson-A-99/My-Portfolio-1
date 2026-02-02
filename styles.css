@@ -636,32 +636,38 @@ body {
 
 /* Footer */
 .footer {
-	background: rgba(0,0,0,0.8); /* Made more opaque for better contrast */
-	border-top: 1px solid rgba(255,255,255,0.15); /* Stronger border */
-	padding: 3rem 1.2em 2rem;
+	background: rgba(0,0,0,0.9); /* Darker for better contrast */
+	border-top: 1px solid rgba(255,255,255,0.15);
+	padding: 4rem 1.2em 3rem; /* More generous padding */
 }
 
 .footer__inner {
 	max-width: 1100px;
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: 2rem;
+	grid-template-columns: 2fr 1fr 1fr; /* Better proportions - email section gets more space */
+	gap: 4rem; /* More space between columns */
 	align-items: start;
+}
+
+.footer__contact {
+	text-align: left;
 }
 
 .footer__title {
 	font-weight: 700;
-	margin: 0 0 1rem 0;
+	margin: 0 0 1.5rem 0; /* More space below title */
 	color: #fff;
-	font-size: 1.1rem;
+	font-size: 1.3rem; /* Larger title */
 	letter-spacing: 1px;
+	text-transform: uppercase;
 }
 
 .footer__email {
-	color: var(--text-secondary); /* Updated color */
+	color: rgb(161, 233, 227); /* Teal color */
 	text-decoration: none;
-	font-size: 1.1rem;
+	font-size: 1.2rem; /* Larger email */
+	font-weight: 500;
 	transition: color 0.3s ease;
 }
 
@@ -672,29 +678,43 @@ body {
 .footer__links {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	gap: 1rem; /* More space between links */
 }
 
 .footer__link {
-	color: var(--muted);
+	color: #b8b8b8; /* Lighter gray */
 	text-decoration: none;
 	transition: color 0.3s ease;
-	padding: 0.3rem 0;
-}
-
-.footer__link:hover {
-	color: #fff;
-}
-
-.social-link {
-	color: var(--muted);
-	text-decoration: none;
-	transition: color 0.3s ease;
+	padding: 0.5rem 0;
+	font-size: 1rem;
 	font-weight: 500;
 }
 
+.footer__link:hover {
+	color: rgb(161, 233, 227); /* Hover to teal */
+}
+
+.social-link {
+	color: #b8b8b8;
+	text-decoration: none;
+	transition: color 0.3s ease;
+	font-weight: 500;
+	font-size: 1rem;
+	padding: 0.5rem 0;
+	display: block;
+}
+
 .social-link:hover {
-	color: #fff;
+	color: rgb(161, 233, 227); /* Hover to teal */
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+	.footer__inner {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		text-align: center;
+	}
 }
 
 /* Page Styles for About/Works/Contact */
