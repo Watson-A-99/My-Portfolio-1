@@ -425,11 +425,12 @@ body {
 
 .skills__grid {
 	display: flex;
-	justify-content: space-between;
-	gap: 3rem;
-	max-width: 1000px;
+	justify-content: center;
+	gap: 2rem; /* Reduced from 3rem to fit all items */
+	max-width: 1200px; /* Increased from 1000px to give more space */
 	margin: 0 auto;
-	flex-wrap: nowrap;
+	flex-wrap: nowrap; /* Changed from wrap to nowrap */
+	align-items: center;
 }
 
 .skill-item {
@@ -442,8 +443,8 @@ body {
 	border-radius: 12px;
 	border: 2px solid var(--card-border);
 	transition: transform 0.3s ease, background 0.3s ease;
-	flex: 1;
-	min-width: 200px;
+	flex: 0 1 180px; /* Changed to fixed width with flex-shrink */
+	min-width: 160px; /* Reduced min-width */
 	position: relative;
 }
 
@@ -487,7 +488,7 @@ body {
 
 /* Custom scaling for individual logos */
 .logo-veo .logo-text {
-	font-size: 20px; /* Adjust this to scale Veo text */
+	font-size: 2.5rem; /* Adjust this to scale Veo text */
 	padding: 12px 20px;
 }
 
@@ -497,23 +498,23 @@ body {
 }
 
 .logo-midjourney svg:first-child {
-	width: 24px; /* Adjust this to scale Midjourney icon */
-	height: 24px;
+	width: 2rem; /* Adjust this to scale Midjourney icon */
+	height: 2rem;
 }
 
 .logo-midjourney svg:last-child {
-	width: 90px; /* Adjust this to scale Midjourney text */
-	height: 18px;
+	width: 7rem; /* Adjust this to scale Midjourney text */
+	height: 7rem;
 }
 
 .logo-imagen .logo-text {
-	font-size: 20px; /* Adjust this to scale Imagen text */
+	font-size: 1.7rem; /* Adjust this to scale Imagen text */
 	padding: 12px 20px;
 }
 
 .logo-elevenlabs svg {
-	width: 90px; /* Adjust this to scale ElevenLabs logo width */
-	height: 18px; /* Adjust this to scale ElevenLabs logo height */
+	width: 11rem; /* Adjust this to scale ElevenLabs logo width */
+	height: 11rem; /* Adjust this to scale ElevenLabs logo height */
 }
 
 .logo-premiere svg {
