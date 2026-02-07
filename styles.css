@@ -1,15 +1,13 @@
 :root {
-	--bg: #0f0f11; /* Made darker for more contrast */
+	--bg: #0f0f11;
 	--panel: #ffffff;
-	--muted: #9a9a9a; /* Made lighter for better readability */
+	--muted: #9a9a9a;
 	--accent: rgb(211, 78, 78);
-	--glass: rgba(255,255,255,0.08); /* Doubled opacity for more visibility */
+	--glass: rgba(255,255,255,0.08);
 	--nav-height: 6.5vh;
-	
-	/* New contrast variables */
-	--card-bg: rgba(255,255,255,0.08); /* More visible card backgrounds */
-	--card-border: rgba(255,255,255,0.15); /* Stronger borders */
-	--text-secondary: #b8b8b8; /* Lighter secondary text */
+	--card-bg: rgba(255,255,255,0.08);
+	--card-border: rgba(255,255,255,0.15);
+	--text-secondary: #b8b8b8;
 }
 
 * { box-sizing: border-box; }
@@ -23,6 +21,14 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+/* Reusable card styling */
+.card-base {
+	background: var(--card-bg);
+	border-radius: 12px;
+	backdrop-filter: blur(8px);
+	border: 1px solid var(--card-border);
+}
+
 /* Ghost navbar */
 .ghost-nav {
 	position: fixed;
@@ -31,8 +37,8 @@ body {
 	right: 0;
 	z-index: 40;
 	backdrop-filter: blur(6px);
-	background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08)); /* Increased visibility */
-	border-bottom: 1px solid rgba(255,255,255,0.15); /* Stronger border */
+	background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08));
+	border-bottom: 1px solid rgba(255,255,255,0.15);
 	min-height: var(--nav-height);
 	padding: 0.3vh 0;
 	display: flex;
@@ -77,7 +83,7 @@ body {
 }
 
 .nav-links a {
-	color: var(--text-secondary); /* Updated to use new variable */
+	color: var(--text-secondary);
 	text-decoration: none;
 	font-weight: 500;
 	letter-spacing: 2.5px;
@@ -90,7 +96,7 @@ body {
 	color: #fff; 
 }
 
-/* Hero section - FIXED POSITIONING */
+/* Hero section */
 .hero {
 	margin-top: var(--nav-height);
 	min-height: 70vh;
@@ -105,7 +111,6 @@ body {
 	position: relative;
 	width: 100%;
 	height: calc(100vh - var(--nav-height));
-	/* Create proper stacking context */
 	z-index: 1;
 }
 
@@ -113,7 +118,6 @@ body {
 	height: 100%;
 	display: flex;
 	transition: transform 0.6s ease;
-	/* Ensure track has proper positioning context */
 	position: relative;
 	z-index: 2;
 }
@@ -126,7 +130,6 @@ body {
 	overflow: hidden;
 	display: flex;
 	align-items: flex-end;
-	/* CRITICAL: Create stacking context for each slide */
 	z-index: 3;
 }
 
@@ -135,63 +138,41 @@ body {
 	height: 100%;
 	object-fit: cover;
 	display: block;
+	/* Desktop default: shift right (original position) */
+	/* Override per-slide below or in mobile breakpoints as needed */
 	transform: translateX(15%);
-	/* Move image to background layer */
 	position: relative;
 	z-index: 1;
 }
 
-/* FIXED: Caption positioning and z-index */
-.hero__caption {
-	position: absolute;
-	left: 2rem;
-	bottom: 2rem;
-	padding: 0.2rem 0.5rem;
-	border-radius: 4px;
-	color: #ffffff8a;
-	font-weight: 600;
-	/* CRITICAL: High z-index to stay above everything */
-	z-index: 100;
-	/* Ensure visibility */
-	visibility: visible;
-	opacity: 1;
-	/* Prevent any transforms from affecting caption */
-	transform: translateZ(0);
-	/* Ensure caption stays in place */
-	will-change: auto;
-	font-size: 0.95rem;
-	letter-spacing: 0.5px;
-	
-}
-.ai-hero-label
-{
-	position: absolute;
-	left: 2rem;
-	bottom: 1rem;
-	padding: 0.15rem 0.7rem;
-	border-radius: 4px;
-	color: #ffffffcc;
-	font-weight: 500;
-	font-size: 0.85rem;
-	/* CRITICAL: High z-index to stay above everything */
-	z-index: 90;
-	/* Ensure visibility */
-	visibility: visible;
-	opacity: 1;
-	/* Prevent any transforms from affecting label */
-	transform: translateZ(0);
-	/* Ensure label stays in place */
-	will-change: auto;
-	letter-spacing: 0.4px;
-}
-/* FIXED: Overlay positioning - moved to per-slide to avoid covering captions */
-.hero__overlay {
-	/* Hidden: per-slide overlay (::before) used instead so captions appear above it */
-	display: none;
-	pointer-events: none;
+/* DESKTOP: Individual slide image positioning and scaling */
+/* Adjust these values to focus on subjects in each image */
+/* translateX: Negative = LEFT, Positive = RIGHT */
+/* translateY: Negative = UP, Positive = DOWN */
+/* scale: 1.0 = normal, >1.0 = zoom in, <1.0 = zoom out */
+
+/* Slide 1: "Artifex" - Dragon image */
+.carousel__slide:nth-child(1) img {
+	width: 120%; /* Adjust overflow width for this slide */
+	height: 100%; /* Adjust overflow height for this slide */
+	transform: translateX(15%) translateY(0%) scale(1.0); /* X position, Y position, zoom */
 }
 
-/* Per-slide overlay so it sits above images but below captions */
+/* Slide 2: "Mud & Silence" - Man running image */
+.carousel__slide:nth-child(2) img {
+	width: 120%;
+	height: 100%;
+	transform: translateX(15%) translateY(0%) scale(1.0);
+}
+
+/* Slide 3: "Sleep Subscription" - Boy in hallway image */
+.carousel__slide:nth-child(3) img {
+	width: 120%;
+	height: 100%;
+	transform: translateX(15%) translateY(0%) scale(1.0);
+}
+
+/* Per-slide overlay - LINEAR gradient for desktop (original) */
 .carousel__slide::before {
 	content: "";
 	position: absolute;
@@ -205,62 +186,35 @@ body {
 		rgba(0, 0, 0, 0.8) 30%, 
 		rgba(0, 0, 0, 0.4) 40%,
 		rgba(0,0,0,0) 75%);
-	z-index: 10; /* above image but below caption (caption has z-index:100) */
+	z-index: 10;
 	pointer-events: none;
 }
 
-/* Slide labels wrapper: positioned per-slide so caption + label stack */
-.slide__labels {
+.hero__caption {
 	position: absolute;
 	left: 2rem;
 	bottom: 2rem;
-	display: flex;
-	flex-direction: column;
-	gap: 0.4rem;
-	z-index: 100;
-	pointer-events: none;
-}
-
-/* Caption (now laid out inside .slide__labels) */
-.hero__caption {
-
 	padding: 0.8rem 1.2rem;
 	border-radius: 8px;
 	color: #ffffffc7;
 	font-weight: 600;
-	visibility: visible;
-	opacity: 1;
-	transform: translateZ(0);
-	will-change: auto;
 	font-size: 0.95rem;
 	letter-spacing: 0.1rem;
 	text-transform: uppercase;
-	
+	z-index: 100;
 }
 
-/* AI label stacked under caption */
 .ai-hero-label {
-	
+	position: absolute;
+	left: 2rem;
+	bottom: 1rem;
 	padding: 0.6rem 1rem;
 	border-radius: 8px;
 	color: #ffffff5d;
 	font-weight: 500;
 	font-size: 0.85rem;
-	visibility: visible;
-	opacity: 1;
-	transform: translateZ(0);
-	will-change: auto;
 	letter-spacing: 0.4px;
-	pointer-events: none;
-}
-
-@media (max-width: 768px) {
-	.slide__labels {
-		left: 1rem;
-		right: 1rem;
-		bottom: 1rem;
-		gap: 0.35rem;
-	}
+	z-index: 90;
 }
 
 .hero__content {
@@ -296,7 +250,7 @@ body {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	background: rgba(16, 16, 16, 0.7); /* Made more opaque */
+	background: rgba(16, 16, 16, 0.7);
 	border: none;
 	color: #fff;
 	padding: 0.5rem 0.9rem;
@@ -308,7 +262,7 @@ body {
 }
 
 .carousel__control:hover {
-	background: rgba(16, 16, 16, 0.9); /* Stronger hover state */
+	background: rgba(16, 16, 16, 0.9);
 }
 
 .carousel__control.prev { left: 1rem; }
@@ -329,7 +283,7 @@ body {
 	height: 10px;
 	border-radius: 50%;
 	border: none;
-	background: rgba(255,255,255,0.4); /* Made more visible */
+	background: rgba(255,255,255,0.4);
 	cursor: pointer;
 	transition: background 0.3s ease;
 }
@@ -353,11 +307,18 @@ body {
 	display: flex;
 	gap: 3rem;
 	align-items: center;
-	background: var(--card-bg); /* Updated to use new variable */
 	padding: 4rem;
+}
+
+.vision__inner,
+.featured-project__inner,
+.about-section,
+.works-placeholder,
+.contact-form {
+	background: var(--card-bg);
 	border-radius: 12px;
 	backdrop-filter: blur(8px);
-	border: 1px solid var(--card-border); /* Updated to use new variable */
+	border: 1px solid var(--card-border);
 }
 
 .vision__left {
@@ -375,7 +336,7 @@ body {
 	font-weight: 800;
 	margin: 0;
 	font-size: clamp(2.2rem, 4vw, 3rem);
-	letter-spacing: 0.35em;font-size: 3rem;
+	letter-spacing: 0.35em;
 	color: #fff;
 	opacity: 0.95;
 	text-transform: uppercase;
@@ -390,22 +351,22 @@ body {
 
 .vision__copy {
 	font-weight: -500;
-	background: rgba(255,255,255,0.04); /* Slightly more visible */
+	background: rgba(255,255,255,0.04);
 	padding: 1.5rem;
 	border-radius: 8px;
-	color: rgb(161, 233, 227); /* Updated to teal color */
+	color: rgb(161, 233, 227);
 	font-size: clamp(1.1rem, 1.3vw, 1.4rem);
 	line-height: 1.75;
 	letter-spacing: 0.8px;
 	text-align: left;
-	border: 1px solid rgba(255,255,255,0.06); /* Slightly stronger border */
+	border: 1px solid rgba(255,255,255,0.06);
 	width: 100%;
 }
 
 /* Skills Section */
 .skills {
 	padding: 6vh 1.2em;
-	background: rgba(255,255,255,0.02); /* Slightly more visible */
+	background: rgba(255,255,255,0.02);
 }
 
 .skills__inner {
@@ -414,7 +375,8 @@ body {
 	text-align: center;
 }
 
-.skills__title {
+.skills__title,
+.film-skills__title {
 	font-weight: 800;
 	margin: 0 0 3rem 0;
 	font-size: clamp(2.2rem, 4vw, 3rem);
@@ -427,10 +389,10 @@ body {
 .skills__grid {
 	display: flex;
 	justify-content: center;
-	gap: 2rem; /* Reduced from 3rem to fit all items */
-	max-width: 1200px; /* Increased from 1000px to give more space */
+	gap: 2rem;
+	max-width: 1200px;
 	margin: 0 auto;
-	flex-wrap: nowrap; /* Changed from wrap to nowrap */
+	flex-wrap: nowrap;
 	align-items: center;
 }
 
@@ -444,8 +406,8 @@ body {
 	border-radius: 12px;
 	border: 2px solid var(--card-border);
 	transition: transform 0.3s ease, background 0.3s ease;
-	flex: 0 1 180px; /* Changed to fixed width with flex-shrink */
-	min-width: 160px; /* Reduced min-width */
+	flex: 0 1 180px;
+	min-width: 160px;
 	position: relative;
 }
 
@@ -459,9 +421,8 @@ body {
 	align-items: center;
 	justify-content: center;
 	transition: transform 0.3s ease;
-	height: 60px; /* Fixed height for consistency */
+	height: 60px;
 	width: 100%;
-	/* Center the icons perfectly */
 	text-align: center;
 }
 
@@ -479,75 +440,53 @@ body {
 	margin-top: 0.5rem;
 }
 
-.project-description {
-	color: rgb(161, 233, 227); /* Updated to teal color */
-	font-size: 1.1rem;
-	line-height: 1.75;
-	letter-spacing: 0.8px;
-	margin: 0 0 2rem 0;
-}
-
 /* Custom scaling for individual logos */
 .logo-veo .logo-text {
-	font-size: 2.5rem; /* Adjust this to scale Veo text */
+	font-size: 2.5rem;
 	padding: 12px 20px;
 }
 
 .logo-kling svg {
-	width: 120px; /* Adjust this to scale Kling logo width */
-	height: 32px;  /* Adjust this to scale Kling logo height */
+	width: 120px;
+	height: 32px;
 }
 
 .logo-midjourney svg:first-child {
-	width: 2rem; /* Adjust this to scale Midjourney icon */
+	width: 2rem;
 	height: 2rem;
 }
 
 .logo-midjourney svg:last-child {
-	width: 7rem; /* Adjust this to scale Midjourney text */
+	width: 7rem;
 	height: 7rem;
 }
 
 .logo-imagen .logo-text {
-	font-size: 1.7rem; /* Adjust this to scale Imagen text */
+	font-size: 1.7rem;
 	padding: 12px 20px;
 }
 
 .logo-elevenlabs svg {
-	width: 11rem; /* Adjust this to scale ElevenLabs logo width */
-	height: 11rem; /* Adjust this to scale ElevenLabs logo height */
+	width: 11rem;
+	height: 11rem;
 }
 
-.logo-premiere svg {
-	width: 60px; /* Adjust this to scale Premiere Pro logo */
-	height: 60px;
-}
-
+.logo-premiere svg,
 .logo-davinci svg {
-	width: 60px; /* Adjust this to scale DaVinci Resolve logo */
+	width: 60px;
 	height: 60px;
 }
 
 /* Film Skills Section */
 .film-skills {
 	padding: 6vh 1.2em;
-	background: rgba(255,255,255,0.01); /* Slightly adjusted */
+	background: rgba(255,255,255,0.01);
 }
 
 .film-skills__inner {
 	max-width: 1400px;
 	margin: 0 auto;
 	text-align: center;
-}
-
-.film-skills__title {
-	font-weight: 800;
-	margin: 0 0 3rem 0;
-	font-size: clamp(2.2rem, 4vw, 3rem);
-	letter-spacing: 0.35em;
-	color: #fff;
-	opacity: 0.95;
-	text-transform: uppercase;
 }
 
 .film-skills__grid {
@@ -562,7 +501,7 @@ body {
 /* Featured Project Section */
 .featured-project {
 	padding: 6vh 1.2em;
-	background: rgba(255,255,255,0.02); /* Slightly more visible */
+	background: rgba(255,255,255,0.02);
 }
 
 .featured-project__inner {
@@ -572,11 +511,7 @@ body {
 	grid-template-columns: auto 1fr;
 	gap: 4rem;
 	align-items: center;
-	background: var(--card-bg); /* Updated to use new variable */
 	padding: 4rem;
-	border-radius: 12px;
-	backdrop-filter: blur(8px);
-	border: 1px solid var(--card-border); /* Updated to use new variable */
 }
 
 .project-image {
@@ -603,19 +538,21 @@ body {
 }
 
 .project-title {
-	font-weight: 700;
-	margin: 0 0 1rem 0;
+	font-weight: 800;
+	margin: 0 0 2.5rem 0;
 	font-size: 2rem;
 	color: #fff;
-	letter-spacing: 2px;
+	letter-spacing: 0.35em;
+	text-transform: uppercase;
+	opacity: 0.95;
 }
 
 .project-description {
-	color: var(--text-secondary); /* Updated color */
+	color: rgb(161, 233, 227);
 	font-size: 1.1rem;
 	line-height: 1.75;
 	letter-spacing: 0.8px;
-	margin: 0 0 2rem 0;
+	margin: 0 0 2.5rem 0;
 }
 
 .project-link {
@@ -637,8 +574,8 @@ body {
 
 /* Footer */
 .footer {
-	background: rgba(0,0,0,0.8); /* Made more opaque for better contrast */
-	border-top: 1px solid rgba(255,255,255,0.15); /* Stronger border */
+	background: rgba(0,0,0,0.8);
+	border-top: 1px solid rgba(255,255,255,0.15);
 	padding: 3rem 1.2em 2rem;
 }
 
@@ -660,13 +597,15 @@ body {
 }
 
 .footer__email {
-	color: var(--text-secondary); /* Updated color */
+	color: var(--text-secondary);
 	text-decoration: none;
 	font-size: 1.1rem;
 	transition: color 0.3s ease;
 }
 
-.footer__email:hover {
+.footer__email:hover,
+.footer__link:hover,
+.social-link:hover {
 	color: #fff;
 }
 
@@ -676,26 +615,19 @@ body {
 	gap: 0.5rem;
 }
 
-.footer__link {
-	color: var(--muted);
-	text-decoration: none;
-	transition: color 0.3s ease;
-	padding: 0.3rem 0;
-}
-
-.footer__link:hover {
-	color: #fff;
-}
-
+.footer__link,
 .social-link {
 	color: var(--muted);
 	text-decoration: none;
 	transition: color 0.3s ease;
-	font-weight: 500;
 }
 
-.social-link:hover {
-	color: #fff;
+.footer__link {
+	padding: 0.3rem 0;
+}
+
+.social-link {
+	font-weight: 500;
 }
 
 /* Page Styles for About/Works/Contact */
@@ -703,7 +635,7 @@ body {
 	margin-top: var(--nav-height);
 	padding: 8vh 1.2em 4vh;
 	text-align: center;
-	background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); /* Slightly more visible */
+	background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
 }
 
 .page-title {
@@ -716,7 +648,7 @@ body {
 }
 
 .page-subtitle {
-	color: rgb(161, 233, 227); /* Updated to teal color */
+	color: rgb(161, 233, 227);
 	font-size: 1.2rem;
 	margin: 1rem 0 0;
 	opacity: 0.9;
@@ -734,11 +666,7 @@ body {
 	grid-template-columns: 1fr 1fr;
 	gap: 3rem;
 	align-items: center;
-	background: var(--card-bg); /* Updated to use new variable */
 	padding: 3rem;
-	border-radius: 12px;
-	backdrop-filter: blur(8px);
-	border: 1px solid var(--card-border); /* Updated to use new variable */
 }
 
 .about-image {
@@ -747,9 +675,9 @@ body {
 }
 
 .about-image img {
-    width: 100%;
-    height: 50em;
-    object-fit: cover;
+	width: 100%;
+	height: 50em;
+	object-fit: cover;
 	border-radius: 25%;
 }
 
@@ -762,7 +690,7 @@ body {
 }
 
 .about-content p {
-	color: var(--text-secondary); /* Updated color */
+	color: var(--text-secondary);
 	font-size: 1.1rem;
 	line-height: 1.75;
 	letter-spacing: 0.8px;
@@ -771,11 +699,7 @@ body {
 
 .works-placeholder {
 	text-align: center;
-	background: var(--card-bg); /* Updated to use new variable */
 	padding: 4rem 2rem;
-	border-radius: 12px;
-	backdrop-filter: blur(8px);
-	border: 1px solid var(--card-border); /* Updated to use new variable */
 }
 
 .works-placeholder h3 {
@@ -786,7 +710,7 @@ body {
 }
 
 .works-placeholder p {
-	color: var(--text-secondary); /* Updated color */
+	color: var(--text-secondary);
 	font-size: 1.2rem;
 	margin: 0;
 	line-height: 1.7;
@@ -796,11 +720,7 @@ body {
 .contact-form {
 	max-width: 600px;
 	margin: 0 auto;
-	background: var(--card-bg); /* Updated to use new variable */
 	padding: 3rem;
-	border-radius: 12px;
-	backdrop-filter: blur(8px);
-	border: 1px solid var(--card-border); /* Updated to use new variable */
 }
 
 .form-group {
@@ -818,11 +738,10 @@ body {
 .form-group textarea {
 	width: 100%;
 	padding: 1rem;
-	background: rgba(255,255,255,0.08); /* More visible input backgrounds */
-	border: 1px solid rgba(255,255,255,0.15); /* Stronger borders */
+	background: rgba(255,255,255,0.08);
+	border: 1px solid rgba(255,255,255,0.15);
 	border-radius: 6px;
 	color: #fff;
-	font-family: inherit;
 	font-size: 1rem;
 	transition: border-color 0.3s ease;
 }
@@ -848,7 +767,6 @@ body {
 	letter-spacing: 1px;
 	cursor: pointer;
 	transition: background 0.3s ease, transform 0.3s ease;
-	font-family: inherit;
 	font-size: 1rem;
 }
 
@@ -858,53 +776,465 @@ body {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
-	:root { --nav-height: 8vh; }
+
+/* Small mobile devices (portrait phones) */
+@media (max-width: 480px) {
+	:root { --nav-height: 7vh; }
+	
+	/* MOBILE: Adjust carousel to prevent clipping */
+	.carousel__slide {
+		/* Ensure full height coverage */
+		align-items: center;
+		/* Allow slight overflow for better positioning flexibility */
+		overflow: hidden;
+	}
+	
+	.carousel__slide img {
+		/* Increase size more to allow dramatic left shifts without right-edge clipping */
+		width: 150%;
+		height: 110%;
+		object-fit: cover;
+		/* This ensures image fills the space without gaps */
+		min-height: 100%;
+		/* Adjust positioning origin for better control */
+		object-position: center;
+	}
+	
+	/* MOBILE ONLY: Override gradient to radial from bottom-left */
+	.carousel__slide::before {
+		background: radial-gradient(ellipse at 0% 100%, 
+			rgba(0, 0, 0, 0.95) 0%, 
+			rgba(0, 0, 0, 0.85) 15%, 
+			rgba(0, 0, 0, 0.6) 30%, 
+			rgba(0, 0, 0, 0.3) 45%,
+			rgba(0,0,0,0) 65%);
+	}
+	
+	/* MOBILE ONLY: Shift images to focus on subjects */
+	/* Default for all slides */
+	.carousel__slide img {
+		transform: translateX(0%) translateY(0%) scale(1.0);
+	}
+	
+	/* Individual slide positioning, sizing, and scaling for mobile */
+	/* width/height: Control overflow (150%+ recommended) */
+	/* translateX: Negative = LEFT, Positive = RIGHT */
+	/* translateY: Negative = UP, Positive = DOWN */
+	/* scale: >1.0 = zoom in, <1.0 = zoom out */
+	
+	.carousel__slide:nth-child(1) img {
+		width: 200%; /* Adjust overflow width for dragon slide */
+		height: 120%; /* Adjust overflow height for dragon slide */
+		transform: translateX(-45%) translateY(-5%) scale(0.9); /* Shift LEFT to reveal head */
+	}
+	
+	.carousel__slide:nth-child(2) img {
+		width: 150%;
+		height: 110%;
+		transform: translateX(-15%) translateY(0%) scale(0.9);
+	}
+	
+	.carousel__slide:nth-child(3) img {
+		width: 200%;
+		height: 120%;
+		transform: translateX(-10%) translateY(0%) scale(0.85);
+	}
 	
 	.nav-inner {
-		padding: 1.2vh 2rem 0;
+		padding: 0.8vh 1rem 0;
 	}
 
 	.logo { 
-		font-size: 1.05em;
-		margin-left: -1rem;
+		font-size: 1.3rem;
+		margin-left: 0;
+		letter-spacing: -0.1rem;
 	}
 	
 	.nav-links {
-		margin-right: -1rem;
+		margin-right: 0;
+		gap: 0.5rem;
 	}
 	
 	.nav-links a { 
-		font-size: 0.95em; 
-	}
-	
-	.hero__caption { 
-		left: 1rem; 
-		right: 1rem; 
-		font-size: 0.95rem; 
-		bottom: 1rem;
-		/* Ensure caption visibility on mobile */
-		z-index: 150;
+		font-size: 0.75rem;
+		letter-spacing: 1.5px;
+		padding: 0.4em 0.5em;
 	}
 	
 	.hero__content { 
-		left: 1rem; 
-		max-width: 75%; 
+		left: 1rem;
+		right: 1rem;
+		max-width: 85%;
+		/* Move to bottom 25% */
+		top: auto;
+		bottom: 25vh;
+		transform: none;
 	}
 	
 	.hero__title { 
-		font-size: clamp(1.6rem, 12vw, 3rem); 
+		font-size: clamp(2rem, 10vw, 3rem);
+		letter-spacing: 0.05em;
+	}
+	
+	.hero__subtitle {
+		font-size: clamp(0.7rem, 3vw, 1rem);
+		letter-spacing: 0.2em;
+	}
+	
+	/* Project captions - smaller and at very bottom */
+	.hero__caption { 
+		left: 1rem;
+		bottom: 8vh;
+		font-size: 0.65rem;
+		padding: 0.4rem 0.7rem;
+		letter-spacing: 0.03rem;
+	}
+
+	.ai-hero-label {
+		left: 1rem;
+		bottom: 5vh;
+		font-size: 0.55rem;
+		padding: 0.35rem 0.6rem;
+	}
+	
+	.carousel__control { 
+		padding: 0.3rem 0.5rem; 
+		font-size: 1.1rem;
+	}
+	
+	.carousel__control.prev { left: 0.5rem; }
+	.carousel__control.next { right: 0.5rem; }
+	
+	.vision {
+		padding: 4vh 1rem;
+	}
+	
+	.vision__inner { 
+		flex-direction: column; 
+		gap: 1.5rem; 
+		padding: 2rem 1.5rem;
+	}
+	
+	.vision__left, .vision__right { 
+		max-width: 100%; 
+		flex: 1 1 100%; 
+		padding: 0; 
+	}
+	
+	.vision__title {
+		font-size: clamp(1.5rem, 6vw, 2rem);
+		letter-spacing: 0.2em;
+	}
+	
+	.vision__copy { 
+		width: 100%; 
+		padding: 1rem;
+		font-size: 0.95rem;
+		letter-spacing: 0.5px;
+	}
+
+	.skills,
+	.film-skills,
+	.featured-project {
+		padding: 4vh 1rem;
+	}
+
+	.skills__title,
+	.film-skills__title {
+		font-size: clamp(1.5rem, 6vw, 2rem);
+		letter-spacing: 0.2em;
+		margin-bottom: 2rem;
+	}
+
+	.skills__grid {
+		gap: 1rem;
+		flex-direction: column;
+		padding: 0 1rem;
+	}
+
+	.skill-item {
+		min-width: auto;
+		flex: none;
+		width: 100%;
+		max-width: 300px;
+		margin: 0 auto;
+		padding: 1.2rem 1rem;
+		gap: 0;
+	}
+	
+	/* Hide skill names on mobile */
+	.skill-name {
+		display: none;
+	}
+	
+	/* MOBILE ONLY: Tap overlay for Premiere & DaVinci with full names */
+	.film-skills__grid .skill-item {
+		position: relative;
+		cursor: pointer;
+	}
+	
+	.film-skills__grid .skill-item::after {
+		content: attr(data-name);
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.15);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-radius: 12px;
+		color: #fff;
+		font-weight: 600;
+		font-size: 1rem;
+		letter-spacing: 1px;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+	}
+	
+	.film-skills__grid .skill-item:active::after {
+		opacity: 1;
+	}
+
+	.film-skills__grid {
+		flex-direction: column;
+		gap: 1.5rem;
+		padding: 0 1rem;
+	}
+
+	.featured-project__inner {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		padding: 2rem 1.5rem;
+	}
+
+	.project-image {
+		width: 100%;
+		max-width: 250px;
+		margin: 0 auto;
+	}
+
+	.project-image img {
+		height: auto;
+		aspect-ratio: 2/3;
+	}
+
+	.project-content {
+		padding: 0.5rem;
+	}
+
+	.project-title {
+		font-size: 1.3rem;
+		letter-spacing: 0.2em;
+		margin-bottom: 1.5rem;
+	}
+
+	.project-description {
+		font-size: 0.95rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.project-link {
+		padding: 0.7rem 1.2rem;
+		font-size: 0.9rem;
+	}
+
+	.footer {
+		padding: 2rem 1rem 1.5rem;
+	}
+
+	.footer__inner {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		text-align: center;
+	}
+
+	.footer__title {
+		font-size: 1rem;
+	}
+
+	.footer__email,
+	.footer__link {
+		font-size: 0.95rem;
+	}
+
+	.page-header {
+		padding: 6vh 1rem 3vh;
+	}
+
+	.page-title {
+		font-size: clamp(2rem, 8vw, 3rem);
+		letter-spacing: 0.1em;
+	}
+
+	.page-subtitle {
+		font-size: 1rem;
+	}
+
+	.page-content {
+		padding: 3vh 1rem;
+	}
+
+	.about-section {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		padding: 2rem 1.5rem;
+	}
+
+	.about-image img {
+		height: auto;
+		max-height: 400px;
+	}
+
+	.about-content h3 {
+		font-size: 1.5rem;
+	}
+
+	.about-content p {
+		font-size: 0.95rem;
+	}
+
+	.works-placeholder {
+		padding: 2rem 1.5rem;
+	}
+
+	.works-placeholder h3 {
+		font-size: 1.5rem;
+	}
+
+	.works-placeholder p {
+		font-size: 1rem;
+	}
+
+	.contact-form {
+		padding: 2rem 1.5rem;
+	}
+
+	.form-group {
+		margin-bottom: 1.5rem;
+	}
+}
+
+/* Mobile landscape and larger phones */
+@media (min-width: 481px) and (max-width: 767px) {
+	:root { --nav-height: 7vh; }
+	
+	/* MOBILE LANDSCAPE: Adjust carousel to prevent clipping */
+	.carousel__slide {
+		align-items: center;
+		overflow: hidden;
+	}
+	
+	.carousel__slide img {
+		width: 150%;
+		height: 110%;
+		object-fit: cover;
+		min-height: 100%;
+		object-position: center;
+	}
+	
+	/* MOBILE LANDSCAPE: Override gradient to radial */
+	.carousel__slide::before {
+		background: radial-gradient(ellipse at 0% 100%, 
+			rgba(0, 0, 0, 0.95) 0%, 
+			rgba(0, 0, 0, 0.85) 15%, 
+			rgba(0, 0, 0, 0.6) 30%, 
+			rgba(0, 0, 0, 0.3) 45%,
+			rgba(0,0,0,0) 65%);
+	}
+	
+	/* MOBILE LANDSCAPE: Shift images to reveal subjects */
+	/* Default for all slides */
+	.carousel__slide img {
+		transform: translateX(0%) translateY(0%) scale(1.0);
+	}
+	
+	/* Individual slide positioning, sizing, and scaling for mobile landscape */
+	/* width/height: Control overflow (150%+ recommended) */
+	/* translateX: Negative = LEFT, Positive = RIGHT */
+	/* translateY: Negative = UP, Positive = DOWN */
+	/* scale: >1.0 = zoom in, <1.0 = zoom out */
+	
+	.carousel__slide:nth-child(1) img {
+		width: 150%; /* Adjust overflow width for dragon slide */
+		height: 110%; /* Adjust overflow height for dragon slide */
+		transform: translateX(-20%) translateY(0%) scale(1.0); /* Shift LEFT to reveal head */
+	}
+	
+	.carousel__slide:nth-child(2) img {
+		width: 150%;
+		height: 110%;
+		transform: translateX(0%) translateY(0%) scale(1.0);
+	}
+	
+	.carousel__slide:nth-child(3) img {
+		width: 150%;
+		height: 110%;
+		transform: translateX(0%) translateY(0%) scale(1.0);
+	}
+	
+	.nav-inner {
+		padding: 0.8vh 1.5rem 0;
+	}
+
+	.logo { 
+		font-size: 1.5rem;
+		margin-left: -2rem;
+	}
+	
+	.nav-links {
+		margin-right: -2rem;
+		gap: 0.7rem;
+	}
+	
+	.nav-links a { 
+		font-size: 0.8rem;
+		letter-spacing: 2px;
+	}
+	
+	.hero__content { 
+		left: 1.5rem;
+		max-width: 80%;
+		/* Move to bottom 25% */
+		top: auto;
+		bottom: 25vh;
+		transform: none;
+	}
+	
+	.hero__title { 
+		font-size: clamp(2.5rem, 11vw, 3.5rem);
+	}
+	
+	.hero__subtitle {
+		font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+		letter-spacing: 0.3em;
+	}
+	
+	/* Project captions - smaller and at bottom */
+	.hero__caption { 
+		left: 1rem;
+		bottom: 9vh;
+		font-size: 0.75rem;
+	}
+
+	.ai-hero-label {
+		left: 1rem;
+		bottom: 6vh;
+		font-size: 0.65rem;
 	}
 	
 	.carousel__control { 
 		padding: 0.4rem 0.7rem; 
 		font-size: 1.3rem;
-		z-index: 60;
 	}
 	
 	.vision__inner { 
 		flex-direction: column; 
-		gap: 1rem; 
+		gap: 2rem; 
 		padding: 2.5rem;
 	}
 	
@@ -914,24 +1244,68 @@ body {
 		padding: 0; 
 	}
 	
+	.vision__title {
+		font-size: clamp(1.8rem, 5vw, 2.5rem);
+	}
+	
 	.vision__copy { 
 		width: 100%; 
-		padding: 1rem; 
-		background: rgba(255,255,255,0.04); /* More visible on mobile */
+		padding: 1.2rem;
+		font-size: 1rem;
 	}
 
 	.skills__grid {
 		gap: 1rem;
-		flex-direction: column;
+		flex-wrap: wrap;
+		max-width: 100%;
 	}
 
 	.skill-item {
-		min-width: auto;
-		flex: none;
+		flex: 0 1 calc(50% - 0.5rem);
+		min-width: 150px;
+		padding: 1.2rem 1rem;
+		gap: 0;
+	}
+	
+	/* Hide skill names on mobile landscape */
+	.skill-name {
+		display: none;
+	}
+	
+	/* MOBILE LANDSCAPE: Tap overlay for Premiere & DaVinci */
+	.film-skills__grid .skill-item {
+		position: relative;
+		cursor: pointer;
+	}
+	
+	.film-skills__grid .skill-item::after {
+		content: attr(data-name);
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.15);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-radius: 12px;
+		color: #fff;
+		font-weight: 600;
+		font-size: 1.1rem;
+		letter-spacing: 1px;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+	}
+	
+	.film-skills__grid .skill-item:active::after {
+		opacity: 1;
 	}
 
 	.film-skills__grid {
-		flex-direction: column;
 		gap: 2rem;
 	}
 
@@ -942,12 +1316,14 @@ body {
 	}
 
 	.project-image {
-		width: 200px;
+		width: 100%;
+		max-width: 280px;
 		margin: 0 auto;
 	}
 
 	.project-image img {
-		height: 300px;
+		height: auto;
+		aspect-ratio: 2/3;
 	}
 
 	.footer__inner {
@@ -959,6 +1335,215 @@ body {
 	.about-section {
 		grid-template-columns: 1fr;
 		gap: 2rem;
-		padding: 2rem;
+		padding: 2.5rem;
+	}
+
+	.about-image img {
+		height: auto;
+		max-height: 500px;
+	}
+}
+
+/* Tablets and iPads (portrait) */
+@media (min-width: 768px) and (max-width: 1024px) {
+	:root { --nav-height: 7vh; }
+	
+	.nav-inner {
+		padding: 0.8vh 2rem 0;
+	}
+
+	.logo { 
+		font-size: 1.8rem;
+		margin-left: 0;
+	}
+	
+	.nav-links {
+		margin-right: 0;
+		gap: 1rem;
+	}
+	
+	.nav-links a { 
+		font-size: 0.85rem;
+		letter-spacing: 2.2px;
+	}
+	
+	.hero__content { 
+		left: 3rem;
+		max-width: 65%;
+	}
+	
+	.hero__title { 
+		font-size: clamp(3rem, 6vw, 4.5rem);
+	}
+	
+	.hero__subtitle {
+		font-size: clamp(1.2rem, 2vw, 1.4rem);
+	}
+	
+	/* Adjust captions for tablet */
+	.hero__caption { 
+		left: 1.5rem;
+		bottom: 10vh;
+		font-size: 0.9rem;
+	}
+
+	.ai-hero-label {
+		left: 1.5rem;
+		bottom: 7vh;
+		font-size: 0.8rem;
+	}
+	
+	.carousel__control { 
+		padding: 0.5rem 0.8rem; 
+		font-size: 1.5rem;
+	}
+	
+	.vision__inner { 
+		gap: 2.5rem; 
+		padding: 3rem;
+	}
+	
+	.vision__title {
+		font-size: clamp(2rem, 4.5vw, 2.8rem);
+	}
+	
+	.vision__copy { 
+		font-size: 1.15rem;
+	}
+
+	.skills__title,
+	.film-skills__title {
+		font-size: clamp(2rem, 4vw, 2.8rem);
+	}
+
+	.skills__grid {
+		gap: 1.5rem;
+		flex-wrap: wrap;
+		max-width: 100%;
+	}
+
+	.skill-item {
+		flex: 0 1 calc(33.333% - 1rem);
+		min-width: 160px;
+	}
+
+	.film-skills__grid {
+		gap: 3rem;
+		max-width: 500px;
+	}
+
+	.featured-project__inner {
+		grid-template-columns: 300px 1fr;
+		gap: 3rem;
+		padding: 3rem;
+	}
+
+	.project-image {
+		width: 300px;
+	}
+
+	.project-title {
+		font-size: 1.8rem;
+	}
+
+	.project-description {
+		font-size: 1.05rem;
+	}
+
+	.footer__inner {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+
+	.about-section {
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem;
+		padding: 2.5rem;
+	}
+
+	.about-image img {
+		height: 40em;
+	}
+}
+
+/* Large tablets and small desktops */
+@media (min-width: 1025px) and (max-width: 1366px) {
+	.logo { 
+		font-size: 1.5vw;
+		margin-left: -6vw;
+	}
+	
+	.nav-links {
+		margin-right: -6vw;
+	}
+	
+	.nav-links a { 
+		font-size: 0.85vw;
+	}
+	
+	.hero__content { 
+		left: 5rem;
+	}
+	
+	.vision__inner,
+	.featured-project__inner,
+	.about-section {
+		max-width: 1200px;
+	}
+
+	.skills__grid {
+		gap: 1.8rem;
+	}
+
+	.skill-item {
+		flex: 0 1 170px;
+	}
+}
+
+/* Extra large screens (4K and above) */
+@media (min-width: 1920px) {
+	.nav-inner,
+	.vision__inner,
+	.skills__inner,
+	.film-skills__inner,
+	.featured-project__inner,
+	.footer__inner,
+	.page-content {
+		max-width: 1600px;
+	}
+
+	.hero__content {
+		left: 10rem;
+	}
+
+	.hero__title {
+		font-size: clamp(5rem, 5vw, 6rem);
+	}
+
+	.hero__subtitle {
+		font-size: clamp(1.8rem, 1.2vw, 2rem);
+	}
+
+	.vision__title,
+	.skills__title,
+	.film-skills__title {
+		font-size: 3.5rem;
+	}
+
+	.vision__copy {
+		font-size: 1.5rem;
+	}
+
+	.skill-item {
+		flex: 0 1 200px;
+		min-width: 180px;
+	}
+
+	.project-title {
+		font-size: 2.5rem;
+	}
+
+	.project-description {
+		font-size: 1.3rem;
 	}
 }
